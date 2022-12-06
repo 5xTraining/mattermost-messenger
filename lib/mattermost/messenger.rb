@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
-require_relative "messenger/version"
+require_relative "messenger/all"
 
 module Mattermost
   module Messenger
     class Error < StandardError; end
-    # Your code goes here...
   end
 end
