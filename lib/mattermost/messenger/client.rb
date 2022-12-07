@@ -10,9 +10,9 @@ module Mattermost
 
       MESSAGE_COLOR = { success: "#4DD200", alert: "#E31B16" }.freeze
 
-      def initialize(options: {})
+      def initialize(options = {})
         @options = options
-        parse_options!
+        parse_options! if options.any?
       end
 
       def send_messages!(options = {})
@@ -38,7 +38,7 @@ module Mattermost
         @webhook_url = @options[:webhook_url] || ENV.fetch("MATTERMOST_WEBHOOK_URL", nil)
         @title = @options.dig(:title, :text)
         @title_link = @options.dig(:title, :link)
-        @type = @options[:type]
+        @type = @options[:type] || "success"
         @messages = @options[:messages]
       end
 
