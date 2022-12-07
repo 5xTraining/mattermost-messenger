@@ -6,8 +6,8 @@ require "faker"
 FactoryBot.define do
   factory :options, class: Hash do
     webhook_url { Faker::Internet.url }
-    title { Faker::Lorem.sentence }
-    type { %w[success alert].sample }
+    title { { text: Faker::Lorem.sentence, link: Faker::Internet.url } }
+    type { "success" }
     messages do
       [
         { title: Faker::Lorem.sentence, content: Faker::Lorem.sentence },
@@ -16,6 +16,12 @@ FactoryBot.define do
     end
 
     initialize_with { attributes }
+
+    trait :with_env do
+      after(:build) do |h|
+        h[:webhook_url] = ENV.fetch("MATTERMOST_WEBHOOK_URL", nil)
+      end
+    end
 
     trait :without_webhook_url do
       after(:build) do |h|
