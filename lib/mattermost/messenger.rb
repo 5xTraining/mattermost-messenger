@@ -4,6 +4,6 @@ require_relative "messenger/all"
 
 module Mattermost
   module Messenger
-    class Error < StandardError; end
+    class NoWebhookUrlError < StandardError; end
   end
 end

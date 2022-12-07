@@ -16,10 +16,10 @@ module Mattermost
       end
 
       def send_messages!(options = {})
-         if options.any?
+        if options.any?
           @options.merge!(options)
           parse_options!
-         end
+        end
 
         uri = URI.parse(@webhook_url)
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "dotenv/load"
-require "mattermost/messenger/all"
+require "mattermost/messenger"
 require_relative "support/factory_bot"
 require_relative "support/vcr"
 

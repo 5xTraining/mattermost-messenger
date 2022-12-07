@@ -39,21 +39,22 @@ RSpec.describe Mattermost::Messenger::Client do
         client = Mattermost::Messenger::Client.new(options: options)
 
         VCR.use_cassette(:mattermost_send_message2) do
-          messages = [ { title: "hello", content: "world" } ]
-          title = {text: "Test Title", link: "https://5xruby.tw"}
+          messages = [{ title: "hello", content: "world" }]
+          title = { text: "Test Title", link: "https://5xruby.tw" }
           response = client.send_messages!(title: title, messages: messages, type: :alert)
+
           expect(response.code).to eq "200"
         end
       end
     end
 
     context "Fail" do
+      it "can not send message successfully if webhook_url is not correct" do
+        options = build(:options, webhook_url: "https://this-url-should-not-exist-888.com")
+        client = Mattermost::Messenger::Client.new(options: options)
+
+        expect { client.send_messages! }.to raise_error(SocketError)
+      end
     end
   end
-
-  # Specs:
-  # send message fail if webhook_url is not available
-  # can not send message if either message nor webhook_url is absensed
-  # can send a success message(color: Green, default)
-  # can send an alert message(color: Red)
 end
