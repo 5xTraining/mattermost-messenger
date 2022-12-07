@@ -13,8 +13,14 @@ RSpec.describe Mattermost::Messenger::Client do
     expect(client.webhook_url).to eq "https://5xruby.tw"
   end
 
+  it "can create a client with ENV['MATTERMOST_WEBHOOK_URL'] if no webhook_url provided" do
+    options = build(:options, :without_webhook_url)
+    client = Mattermost::Messenger::Client.new(options: options)
+
+    expect(client.webhook_url).to eq ENV.fetch("MATTERMOST_WEBHOOK_URL", nil)
+  end
+
   # Specs:
-  # can create a client with ENV['WEBHOOK_URL'] if no webhook_url provided
   # can send message
   # can not send message if either message nor webhook_url is absensed
   # can send an alert message(color: #ff0000)

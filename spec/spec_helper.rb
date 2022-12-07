@@ -2,6 +2,7 @@
 
 require "mattermost/messenger/all"
 require_relative "support/factory_bot"
+require "dotenv/load"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

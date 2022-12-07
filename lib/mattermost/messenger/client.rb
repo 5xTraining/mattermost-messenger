@@ -13,7 +13,8 @@ module Mattermost
       private
 
       def parse_options
-        @webhook_url = @options[:webhook_url]
+        p ENV.fetch("MATTERMOST_WEBHOOK_URL", nil)
+        @webhook_url = @options[:webhook_url] || ENV.fetch("MATTERMOST_WEBHOOK_URL", nil)
       end
     end
   end

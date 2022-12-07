@@ -16,5 +16,11 @@ FactoryBot.define do
     end
 
     initialize_with { attributes }
+
+    trait :without_webhook_url do
+      after(:build) do |h|
+        h.delete(:webhook_url)
+      end
+    end
   end
 end
